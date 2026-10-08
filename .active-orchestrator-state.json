@@ -1,0 +1,442 @@
+﻿{
+    "version":  4,
+    "step":  "done",
+    "owner":  "active-orchestrator",
+    "notes":  {
+                  "openspec_init":  "Etapa 1 completada: openspec init ejecutado en 2026-10-07 con --tools opencode.",
+                  "discovery_gate":  "Decision tomada el 2026-10-07: SI hacer Discovery (obligatorio segun consigna del trabajo).",
+                  "scaffolding_cleanup":  "Se conservaron .opencode/skills/openspec-* y .opencode/commands/opsx-*: en la instalacion opencode no existen globalmente (a diferencia de Claude), son el mecanismo de entrega OPSX del proyecto.",
+                  "pa01":  "PA-01 resuelta 2026-10-08: stack final Node+React+Postgres+Prisma. Elegido change Etapa 6: crear-turno-sin-solapamientos."
+              },
+    "discovery":  {
+                      "created_by":  "discovery-research",
+                      "sources":  [
+                                      "https://dentalsoft.com.ar/",
+                                      "https://dental.delriotech.com.ar/",
+                                      "https://web.dentaltec.com.ar/",
+                                      "https://hiorbita.com/",
+                                      "https://bilog.com.ar/",
+                                      "https://consultorio-digital.com.ar/",
+                                      "https://odonthia.com/",
+                                      "https://odontoapp.com.ar/",
+                                      "https://dentalcore.app/",
+                                      "https://www.dentaly.com.ar/",
+                                      "https://www.dentalpro.tech/",
+                                      "https://www.softwaredentalink.com/cl/planes",
+                                      "https://gbsystems.com/os",
+                                      "https://www.odontsoft.com/",
+                                      "https://dentrisoft.com/",
+                                      "https://dentalsoft.ec/",
+                                      "https://odontozen.com/",
+                                      "https://sit-dental.com/",
+                                      "https://www.adiasoft.com/pe/sistema-para-clinicas-dentales",
+                                      "https://medware.com.mx/software-para-dentistas",
+                                      "https://xdentalcloud.com/software-dental-mexico/",
+                                      "https://www.simplesdental.com/",
+                                      "https://www.codental.com.br/",
+                                      "https://odontomy.com/",
+                                      "https://www.opendental.com/",
+                                      "https://www.dentrixascend.com/",
+                                      "https://pattersonsupport.custhelp.com/app/answers/detail/a_id/11343",
+                                      "https://carestack.com/pricing",
+                                      "https://www.curvedental.com/",
+                                      "https://www.dentally.com/",
+                                      "https://www.solutionreach.com/",
+                                      "https://www.planetdds.com/cloud9/"
+                                  ],
+                      "sources_fetched_at":  "2026-10-07",
+                      "competitors":  [
+                                          {
+                                              "name":  "DentalCore",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "Orbita",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "DentalSoft",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "DentalSaaS",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "DentalTec",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "Bilog",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "Odonthia",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "OdontoApp",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "Dentaly",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "DentalPro",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "Consultorio Digital",
+                                              "notes_file":  "docs/discovery/sources/argentina.md"
+                                          },
+                                          {
+                                              "name":  "Codental",
+                                              "notes_file":  "docs/discovery/sources/latam.md"
+                                          },
+                                          {
+                                              "name":  "Simples Dental",
+                                              "notes_file":  "docs/discovery/sources/latam.md"
+                                          },
+                                          {
+                                              "name":  "Odontozen",
+                                              "notes_file":  "docs/discovery/sources/latam.md"
+                                          },
+                                          {
+                                              "name":  "Open Dental",
+                                              "notes_file":  "docs/discovery/sources/internacional.md"
+                                          },
+                                          {
+                                              "name":  "CareStack",
+                                              "notes_file":  "docs/discovery/sources/internacional.md"
+                                          }
+                                      ],
+                      "problema":  "Los consultorios odontologicos argentinos gestionan turnos, fichas y cobros con WhatsApp, planillas o papel, lo que genera ausencias, dobles reservas y tiempo perdido confirmando manualmente cada turno.",
+                      "usuarios":  [
+                                       "secretaria_recepcionista",
+                                       "odontologo",
+                                       "director_dueÃ±o_clinica",
+                                       "paciente"
+                                   ],
+                      "casos_de_uso":  [
+                                           "Como secretaria, quiero agendar un turno sin que se solape con otro profesional o sillon.",
+                                           "Como paciente, quiero reservar o cancelar mi turno online con recordatorio por WhatsApp.",
+                                           "Como odontologo, quiero registrar la prestacion en la ficha con odontograma.",
+                                           "Como secretaria, quiero cobrar un turno o una seÃ±a y registrarlo en caja.",
+                                           "Como director, quiero ver ocupacion, cobros y deudas por obra social."
+                                       ],
+                      "funcionalidades_necesarias":  [
+                                                         "Agenda anti-solapamiento por profesional y por sillon",
+                                                         "Duracion configurable por prestacion y horarios por profesional",
+                                                         "Bloqueos por feriados/vacaciones y sobreturnos",
+                                                         "Reserva online 24/7 + alta de paciente con ficha previa por QR/link",
+                                                         "Recordatorios automaticos por WhatsApp con confirmacion/cancelacion interactiva",
+                                                         "Ficha clinica digital + odontograma con historial",
+                                                         "Cobro de turnos y seÃ±as (efectivo/tarjeta/MercadoPago) con caja",
+                                                         "Cobertura y obra social con nomenclador argentino",
+                                                         "Roles (secretaria/odontologo/director) y exportacion de datos"
+                                                     ],
+                      "funcionalidades_opcionales":  [
+                                                         "Periodontograma y modulo de ortodoncia",
+                                                         "Asistente IA (agenda por WhatsApp, resumen de pacientes, notas clinicas)",
+                                                         "Teleconsulta / videollamada",
+                                                         "Campanas de recall/controles y mailing",
+                                                         "Multi-sucursal / redes de clinicas",
+                                                         "Facturacion ARCA (A/B/C con CAE) en v2"
+                                                     ],
+                      "reglas_de_negocio":  [
+                                                "No se pueden superponer turnos en un mismo profesional y sillon",
+                                                "La duracion de un turno depende de la prestacion (configurable)",
+                                                "Se pueden bloquear franjas (feriados, vacaciones) y crear sobreturnos sin romper la regla de solapamiento",
+                                                "Una seÃ±a cobrada va a cuenta del tratamiento; registra el saldo",
+                                                "Los recordatorios se envian en una ventana configurable (ej. 24h y 2h antes)",
+                                                "Datos de pacientes y fichas tratados bajo Ley 25.326 y Ley 26.529"
+                                            ],
+                      "integraciones":  [
+                                            "WhatsApp (API oficial de Meta o canal): recordatorios y confirmaciones; costo ~USD 0,02-0,03/msg",
+                                            "MercadoPago: cobros y seÃ±as online",
+                                            "Google Calendar: sync de agenda por profesional",
+                                            "ARCA (ex AFIP): facturacion electronica (DentalTec, DentalCore comprobado)",
+                                            "Obras sociales/prepagas: validacion y liquidacion (DentalTec via SOAP 15+)"
+                                        ],
+                      "restricciones":  [
+                                            "Cumplimiento Ley 25.326 (datos personales) y Ley 26.529 + reglamentacion (historia clinica); ambito argentino",
+                                            "Rango de precio local comprobado USD 25-70/mes equivalentes; free tier esperado por el mercado",
+                                            "Datos ficticios (consigna): sin pacientes reales en el repo",
+                                            "Stack/arquitectura a definir en Etapa 3 (kb-creator)"
+                                        ],
+                      "riesgos":  [
+                                      "Inventos del agente / supuestos sin probar (mitigado con etiquetas de evidencia)",
+                                      "Complejidad ARCA y obras sociales: se pospone a v2 o como regla no bloqueante",
+                                      "Costo de mensajeria WhatsApp: inviable un modelo muy gratuito con muchos recordatorios",
+                                      "Free tiers con topes duros (Consultorio Digital 1 profesional; OdontoApp 10 pacientes)",
+                                      "Migracion/import desde Excel es factor real de adopcion",
+                                      "Ningun competidor evaluado documenta API publica, auditoria completa ni cumplimiento detallado de Ley 25.326"
+                                  ],
+                      "preguntas_abiertas":  [
+                                                 "API publica / integraciones a terceros desde el dia 1?",
+                                                 "Auditoria completa (quien/cuando/donde) es requisito o diferencial?",
+                                                 "Multi-sucursal entra en el MVP o queda fuera?",
+                                                 "Nivel de trazabilidad/respaldo exigido por la catedra",
+                                                 "Incluir web propia del consultorio como modulo o como integracion"
+                                             ],
+                      "deliverables":  {
+                                           "checklist":  "docs/discovery/checklist-discovery.md",
+                                           "prosa":  "docs/discovery/discovery.md",
+                                           "informe":  "docs/discovery/informe-discovery.md",
+                                           "pdf":  "docs/discovery/informe-discovery.pdf",
+                                           "fuentes":  "docs/discovery/sources/",
+                                           "matriz_b":  "docs/discovery/matriz_b.json"
+                                       },
+                      "verificacion_fuentes":  [
+                                                   "dentalsoft.com.ar (pagina oficial AR): planes, costo WhatsApp Meta y funcionalidades confirmados",
+                                                   "dentalcore.app/pricing (precios AR): USD 50/mes, garantia 14 dias, sin plan gratis, ARCA + MercadoPago + FHIR confirmados",
+                                                   "odontozen.com/precios (precios Ecuador): USD 19,99/39,99/79,99, prueba 15 dias, backup 90 dias confirmados",
+                                                   "carestack.com/pricing (precios internacional): USD 829/1299, online scheduling, 3000+ practicas confirmados",
+                                                   "simplesdental.com/planos-e-precos (planos Brasil): R$ 149,90/249,90/349,90, control por cadeiras, WhatsApp aparte confirmados"
+                                               ]
+                  },
+    "kb":  {
+               "created_by":  "kb-creator",
+               "source":  "ingest",
+               "discovery":  {
+                                 "problem":  "Los consultorios odontologicos argentinos gestionan turnos, fichas y cobros con WhatsApp, planillas o papel, lo que genera ausencias, dobles reservas y tiempo perdido confirmando manualmente cada turno.",
+                                 "system_type":  "saas_multi_tenant (web_app)",
+                                 "domain":  "odontologia / salud de consultorio",
+                                 "scale":  "public_multi_user (pacientes online + staff por rol: secretaria/odontologo/director)",
+                                 "stack":  [
+                                               "Node.js 20+ / TypeScript",
+                                               "React 18 + Vite",
+                                               "PostgreSQL 15+",
+                                               "Prisma"
+                                           ],
+                                 "needs_infra":  true
+                             },
+               "files":  [
+                             "knowledge-base/01_vision_y_objetivos.md",
+                             "knowledge-base/02_descripcion_general.md",
+                             "knowledge-base/03_actores_y_roles.md",
+                             "knowledge-base/04_modelo_de_datos.md",
+                             "knowledge-base/05_reglas_de_negocio.md",
+                             "knowledge-base/06_funcionalidades.md",
+                             "knowledge-base/07_flujos_principales.md",
+                             "knowledge-base/08_arquitectura_propuesta.md",
+                             "knowledge-base/09_decisiones_y_supuestos.md",
+                             "knowledge-base/10_preguntas_abiertas.md",
+                             "knowledge-base/11_whatsapp_recordatorios_y_confirmaciones.md",
+                             "knowledge-base/12_pagos_y_senas_mercadopago.md",
+                             "knowledge-base/13_obra_social_facturacion_y_cumplimiento.md",
+                             "knowledge-base/README.md"
+                         ]
+           },
+    "roadmap":  {
+                    "created_by":  "roadmap-generator",
+                    "source":  "CHANGES.md",
+                    "changes_file":  "CHANGES.md",
+                    "changes":  [
+                                    "C-01",
+                                    "C-02",
+                                    "C-03",
+                                    "C-04",
+                                    "C-05",
+                                    "C-06",
+                                    "C-07",
+                                    "C-08",
+                                    "C-09",
+                                    "C-10",
+                                    "C-11",
+                                    "C-12",
+                                    "C-13",
+                                    "C-14",
+                                    "C-15",
+                                    "C-16"
+                                ]
+                },
+    "skills":  {
+                   "created_by":  "find-skill",
+                   "mode":  "recommend-only",
+                   "searched_at":  "2026-10-08",
+                   "queries":  [
+                                   "react",
+                                   "postgres",
+                                   "testing",
+                                   "security",
+                                   "api design",
+                                   "docker deploy",
+                                   "typescript",
+                                   "code review",
+                                   "nextjs",
+                                   "multi-tenant saas",
+                                   "whatsapp",
+                                   "documentation"
+                               ],
+                   "recommended":  [
+                                       {
+                                           "name":  "tdd",
+                                           "repo":  "mattpocock/skills",
+                                           "id":  "mattpocock/skills@tdd",
+                                           "installs":  "1M",
+                                           "why":  "Cubrir con tests la regla anti-solapamiento (409/UNIQUE) y la caja, antes de tocar codigo."
+                                       },
+                                       {
+                                           "name":  "vercel-react-best-practices",
+                                           "repo":  "vercel-labs/agent-skills",
+                                           "id":  "vercel-labs/agent-skills@vercel-react-best-practices",
+                                           "installs":  "778K",
+                                           "why":  "Frontend React: SPA del staff y portal publico de reserva 24/7."
+                                       },
+                                       {
+                                           "name":  "codebase-design",
+                                           "repo":  "mattpocock/skills",
+                                           "id":  "mattpocock/skills@codebase-design",
+                                           "installs":  "754.7K",
+                                           "why":  "Modela la estructura por capas domain/application/infrastructure del backend propuesto."
+                                       },
+                                       {
+                                           "name":  "code-review",
+                                           "repo":  "mattpocock/skills",
+                                           "id":  "mattpocock/skills@code-review",
+                                           "installs":  "689.5K",
+                                           "why":  "Revision sistematica de los 16 changes de CHANGES.md antes de mergear."
+                                       },
+                                       {
+                                           "name":  "frontend-design",
+                                           "repo":  "anthropics/skills",
+                                           "id":  "anthropics/skills@frontend-design",
+                                           "installs":  "962.1K",
+                                           "why":  "UI del portal del paciente y de la agenda (calendario, forms, densidad de datos)."
+                                       },
+                                       {
+                                           "name":  "supabase-postgres-best-practices",
+                                           "repo":  "supabase/agent-skills",
+                                           "id":  "supabase/agent-skills@supabase-postgres-best-practices",
+                                           "installs":  "435.1K",
+                                           "why":  "Postgres: constraints UNIQUE anti-solape, indices de agenda y RLS como base multi-tenant."
+                                       },
+                                       {
+                                           "name":  "prisma-postgres",
+                                           "repo":  "prisma/skills",
+                                           "id":  "prisma/skills@prisma-postgres",
+                                           "installs":  "336.6K",
+                                           "why":  "Capa de datos/ORM si se confirma el stack candidato Node+React+Postgres (PA-01)."
+                                       },
+                                       {
+                                           "name":  "setup-pre-commit",
+                                           "repo":  "mattpocock/skills",
+                                           "id":  "mattpocock/skills@setup-pre-commit",
+                                           "installs":  "430.6K",
+                                           "why":  "Hooks de lint/formato en cada commit para mantener calidad continua en el repo."
+                                       },
+                                       {
+                                           "name":  "webapp-testing",
+                                           "repo":  "anthropics/skills",
+                                           "id":  "anthropics/skills@webapp-testing",
+                                           "installs":  "171.7K",
+                                           "why":  "E2E de los flujos criticos: agendar turno, reservar online, cobrar y confirmar por WhatsApp."
+                                       },
+                                       {
+                                           "name":  "playwright-best-practices",
+                                           "repo":  "currents-dev/playwright-best-practices-skill",
+                                           "id":  "currents-dev/playwright-best-practices-skill@playwright-best-practices",
+                                           "installs":  "90.8K",
+                                           "why":  "Normas concretas de Playwright para estabilizar la suite E2E (selectores, esperas)."
+                                       },
+                                       {
+                                           "name":  "security-and-hardening",
+                                           "repo":  "addyosmani/agent-skills",
+                                           "id":  "addyosmani/agent-skills@security-and-hardening",
+                                           "installs":  "53.6K",
+                                           "why":  "OWASP top-10, JWT/bcrypt, gestion de secrets y verificacion de firmas de webhooks (MercadoPago/WhatsApp)."
+                                       },
+                                       {
+                                           "name":  "documentation-and-adrs",
+                                           "repo":  "addyosmani/agent-skills",
+                                           "id":  "addyosmani/agent-skills@documentation-and-adrs",
+                                           "installs":  "49.3K",
+                                           "why":  "ADRs y documentacion tecnica que complementan la KB y las decisiones de 09_decisiones_y_supuestos.md."
+                                       },
+                                       {
+                                           "name":  "api-and-interface-design",
+                                           "repo":  "addyosmani/agent-skills",
+                                           "id":  "addyosmani/agent-skills@api-and-interface-design",
+                                           "installs":  "48K",
+                                           "why":  "Diseno de la API REST unica y de contratos/DTOs validados por schema."
+                                       },
+                                       {
+                                           "name":  "nodejs-backend-patterns",
+                                           "repo":  "wshobson/agents",
+                                           "id":  "wshobson/agents@nodejs-backend-patterns",
+                                           "installs":  "47.2K",
+                                           "why":  "Patrones de backend Node si se confirma Node+React (transacciones, colas, webhooks)."
+                                       },
+                                       {
+                                           "name":  "nestjs-best-practices",
+                                           "repo":  "kadajett/agent-nestjs-skills",
+                                           "id":  "kadajett/agent-nestjs-skills@nestjs-best-practices",
+                                           "installs":  "29.1K",
+                                           "why":  "Si el cambio tecnico elige Nest como backend (candidato citado en 08_arquitectura_propuesta.md)."
+                                       },
+                                       {
+                                           "name":  "integrate-whatsapp",
+                                           "repo":  "gokapso/agent-skills",
+                                           "id":  "gokapso/agent-skills@integrate-whatsapp",
+                                           "installs":  "4.2K",
+                                           "why":  "Integracion WhatsApp Cloud API para recordatorios y confirmaciones (installs bajos: verificar calidad)."
+                                       }
+                                   ],
+                   "notes":  [
+                                 "Modo recomendacion: no se ejecuto `npx skills add`; installed queda vacio.",
+                                 "No se encontraron skills maduras de multi-tenant especificos para salud: los candidatos (sickn33@saas-multi-tenant 68, peterbamuhigire@multi-tenant-saas-architecture 134) estan bajo 100 installs, se omiten por calidad.",
+                                 "Tampoco hay skills relevantes de MercadoPago ni ARCA/facturacion; esas integraciones se cubren con la documentacion oficial.",
+                                 "El stack sigue \u0027por definir\u0027 (PA-01): prisma-postgres y nestjs-best-practices se confirman solo si se elige Node+React+Postgres.",
+                                 "Filtro aplicado: preferir 1K+ installs y fuentes conocidas (vercel-labs, anthropics, supabase, prisma, mattpocock, addyosmani)."
+                             ],
+                   "installed":  [
+                                     "tdd",
+                                     "frontend-design",
+                                     "vercel-react-best-practices",
+                                     "codebase-design",
+                                     "code-review",
+                                     "supabase-postgres-best-practices",
+                                     "setup-pre-commit",
+                                     "webapp-testing",
+                                     "security-and-hardening",
+                                     "documentation-and-adrs",
+                                     "api-and-interface-design",
+                                     "prisma-postgres",
+                                     "nodejs-backend-patterns",
+                                     "nestjs-best-practices"
+                                 ],
+                   "installed_at":  "2026-10-08",
+                   "declined":  [
+                                    "playwright-best-practices",
+                                    "integrate-whatsapp"
+                                ]
+               },
+    "registry":  {
+                     "created_by":  "skill-registry",
+                     "file":  ".atl/skill-registry.md"
+                 },
+    "agents":  {
+                   "created_by":  "agent-instruction",
+                   "files":  [
+                                 "AGENTS.md",
+                                 "CLAUDE.md"
+                             ],
+                   "reglas_applied":  [
+                                          "datos_ficticios",
+                                          "antisolape_en_bd",
+                                          "gcal_solo_lectura",
+                                          "typescript_estricto",
+                                          "sin_secrets_en_repo",
+                                          "firmar_webhooks",
+                                          "trazabilidad_clinica",
+                                          "migraciones",
+                                          "no_commitear_sin_pedido",
+                                          "tests_reglas_duras",
+                                          "pa01_bloqueante"
+                                      ],
+                   "global_claude_md":  false,
+                   "nota":  "No hay ~/.claude/CLAUDE.md global: el proyecto carga tambien las reglas de gobernanza."
+               }
+}

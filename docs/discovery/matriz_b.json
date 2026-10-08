@@ -1,0 +1,194 @@
+{
+  "DentalSoft (AR)": {
+    "scores": {
+      "turnos": 5,
+      "clinico": 4,
+      "integraciones": 4,
+      "admin": 4,
+      "paciente": 5,
+      "seguridad": 3,
+      "precio": 4
+    },
+    "total": 4.25
+  },
+  "DentalSaaS (AR)": {
+    "scores": {
+      "turnos": 4,
+      "clinico": 5,
+      "integraciones": 3,
+      "admin": 4,
+      "paciente": 4,
+      "seguridad": 4,
+      "precio": 3
+    },
+    "total": 4.0
+  },
+  "DentalTec (AR)": {
+    "scores": {
+      "turnos": 3,
+      "clinico": 3,
+      "integraciones": 4,
+      "admin": 5,
+      "paciente": 2,
+      "seguridad": 4,
+      "precio": 3
+    },
+    "total": 3.45
+  },
+  "Orbita (AR)": {
+    "scores": {
+      "turnos": 5,
+      "clinico": 5,
+      "integraciones": 3,
+      "admin": 4,
+      "paciente": 4,
+      "seguridad": 4,
+      "precio": 3
+    },
+    "total": 4.25
+  },
+  "Bilog (AR)": {
+    "scores": {
+      "turnos": 3,
+      "clinico": 4,
+      "integraciones": 3,
+      "admin": 3,
+      "paciente": 4,
+      "seguridad": 2,
+      "precio": 2
+    },
+    "total": 3.15
+  },
+  "Consultorio Digital (AR)": {
+    "scores": {
+      "turnos": 2,
+      "clinico": 2,
+      "integraciones": 1,
+      "admin": 2,
+      "paciente": 1,
+      "seguridad": 2,
+      "precio": 5
+    },
+    "total": 1.9
+  },
+  "Odonthia (AR)": {
+    "scores": {
+      "turnos": 4,
+      "clinico": 5,
+      "integraciones": 3,
+      "admin": 2,
+      "paciente": 4,
+      "seguridad": 3,
+      "precio": 5
+    },
+    "total": 3.7
+  },
+  "OdontoApp (AR)": {
+    "scores": {
+      "turnos": 2,
+      "clinico": 4,
+      "integraciones": 2,
+      "admin": 3,
+      "paciente": 2,
+      "seguridad": 3,
+      "precio": 4
+    },
+    "total": 2.75
+  },
+  "DentalCore (AR)": {
+    "scores": {
+      "turnos": 5,
+      "clinico": 5,
+      "integraciones": 5,
+      "admin": 5,
+      "paciente": 4,
+      "seguridad": 5,
+      "precio": 3
+    },
+    "total": 4.8
+  },
+  "Dentaly (AR)": {
+    "scores": {
+      "turnos": 3,
+      "clinico": 3,
+      "integraciones": 2,
+      "admin": 2,
+      "paciente": 3,
+      "seguridad": 1,
+      "precio": 3
+    },
+    "total": 2.5
+  },
+  "DentalPro (AR/MX)": {
+    "scores": {
+      "turnos": 4,
+      "clinico": 3,
+      "integraciones": 3,
+      "admin": 3,
+      "paciente": 4,
+      "seguridad": 4,
+      "precio": 4
+    },
+    "total": 3.5
+  },
+  "OdontoSoft Millennium (AR/US)": {
+    "scores": {
+      "turnos": 2,
+      "clinico": 3,
+      "integraciones": 1,
+      "admin": 4,
+      "paciente": 2,
+      "seguridad": 3,
+      "precio": 3
+    },
+    "total": 2.5
+  },
+  "Dentally (UK, ref.)": {
+    "scores": {
+      "turnos": 4,
+      "clinico": 4,
+      "integraciones": 3,
+      "admin": 4,
+      "paciente": 4,
+      "seguridad": 2,
+      "precio": 2
+    },
+    "total": 3.55
+  },
+  "CareStack (US, ref.)": {
+    "scores": {
+      "turnos": 4,
+      "clinico": 5,
+      "integraciones": 3,
+      "admin": 5,
+      "paciente": 4,
+      "seguridad": 5,
+      "precio": 1
+    },
+    "total": 4.15
+  },
+  "Simples Dental (BR)": {
+    "scores": {
+      "turnos": 5,
+      "clinico": 5,
+      "integraciones": 3,
+      "admin": 4,
+      "paciente": 4,
+      "seguridad": 3,
+      "precio": 3
+    },
+    "total": 4.15
+  },
+  "Codental (BR)": {
+    "scores": {
+      "turnos": 5,
+      "clinico": 4,
+      "integraciones": 3,
+      "admin": 4,
+      "paciente": 4,
+      "seguridad": 3,
+      "precio": 4
+    },
+    "total": 4.0
+  }
+}

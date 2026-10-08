@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Clinic {
+  id       String  @id @default(cuid())
+  name     String
+  isActive Boolean @default(true)
+
+  providers     Provider[]
+  operatingUnits OperatingUnit[]
+  procedures    Procedure[]
+  appointments  Appointment[]
+
+  @@map("clinic")
+}
+
+model Provider {
+  id       String @id @default(cuid())
+  clinicId String
+  name     String
+
+  clinic        Clinic          @relation(fields: [clinicId], references: [id])
+  appointments  Appointment[]
+
+  @@index([clinicId])
+  @@map("provider")
+}
+
+model OperatingUnit {
+  id       String @id @default(cuid())
+  clinicId String
+  name     String
+
+  clinic       Clinic         @relation(fields: [clinicId], references: [id])
+  appointments Appointment[]
+
+  @@index([clinicId])
+  @@map("operating_unit")
+}
+
+model Procedure {
+  id                String @id @default(cuid())
+  clinicId          String
+  code              String
+  name              String
+  defaultDurationMin Int
+
+  clinic       Clinic        @relation(fields: [clinicId], references: [id])
+  appointments Appointment[]
+
+  @@unique([clinicId, code])
+  @@map("procedure")
+}
+
+model Appointment {
+  id              String   @id @default(cuid())
+  clinicId        String
+  providerId      String
+  operatingUnitId String
+  procedureId     String
+  patientName     String
+  start           DateTime @db.Timestamptz
+  end             DateTime @db.Timestamptz
+  status          String   @default("confirmado")
+  source          String   @default("secretaria")
+  createdAt       DateTime @default(now()) @db.Timestamptz
+
+  clinic        Clinic        @relation(fields: [clinicId], references: [id])
+  provider      Provider      @relation(fields: [providerId], references: [id])
+  operatingUnit OperatingUnit @relation(fields: [operatingUnitId], references: [id])
+  procedure     Procedure     @relation(fields: [procedureId], references: [id])
+
+  @@index([providerId, start])
+  @@index([operatingUnitId, start])
+  @@index([clinicId, start])
+  @@map("appointment")
+}
