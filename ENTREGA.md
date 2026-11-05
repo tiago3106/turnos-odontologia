@@ -7,7 +7,7 @@
 ## Datos de la entrega
 
 - **Repositorio**: https://github.com/tiago3106/turnos-odontologia
-- **Commit de entrega**: `[se completa en el commit siguiente]`
+- **Commit de entrega**: `ff79943`
 - **ZIP**: `TP-Skills-MCP-Guillot.zip`
 
 ## Documentos
