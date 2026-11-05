@@ -57,7 +57,7 @@ Fuente de verdad: `.atl/skill-registry.md` (generado por `skill-registry`).
 | **Backend Core** | Motor de agenda, modelos, auth, anti-solapamiento | `tdd`, `codebase-design`, `supabase-postgres-best-practices`, `prisma-postgres`, `nodejs-backend-patterns` |
 | **Backend Aux** | Integraciones (WhatsApp, MercadoPago), seguridad, API | `api-and-interface-design`, `security-and-hardening`, `nestjs-best-practices` |
 | **Frontend** | SPA staff + portal de reserva 24/7 | `frontend-design`, `vercel-react-best-practices`, `webapp-testing` |
-| **Calidad / Docs** | Revisión, hooks, documentación y ADRs | `code-review`, `setup-pre-commit`, `documentation-and-adrs` |
+| **Calidad / Docs** | Revisión, hooks, documentación y ADRs | `code-review`, `setup-pre-commit`, `documentation-and-adrs`, `spec-scenario-validator` |
 | **Orquestación** | SDD / OPSX | `active-orchestrator`, `kb-creator`, `roadmap-generator`, `agents-md-generator`, `skill-registry` |
 
 Cargá la skill correspondiente al contexto ANTES de escribir código.
@@ -65,6 +65,12 @@ Cargá la skill correspondiente al contexto ANTES de escribir código.
 > Los compact rules de cada skill los resuelve el orquestador desde `.atl/skill-registry.md` (generado por `skill-registry`; no versionado — no está en el repo). Esta tabla solo mapea skill→rol.
 
 ---
+
+## MCP (Model Context Protocol)
+
+Servidor del proyecto: **GitHub MCP** (remoto `https://api.githubcopilot.com/mcp/`), solo lectura sobre `tiago3106/turnos-odontologia` y repos públicos. Config en `opencode.json` sin secretos: el token se inyecta desde `GITHUB_PERSONAL_ACCESS_TOKEN` (nunca commitearlo). Alternativa sin secreto: OAuth de opencode. Detalle y verificación en `docs/skills-mcp/mcp-github.md`.
+
+Context7 y Engram siguen disponibles desde la config global. Reiniciar opencode tras cambiar config o agregar la skill.
 
 ## Roadmap de Changes
 

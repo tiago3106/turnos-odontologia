@@ -22,6 +22,7 @@ See `_shared/skill-resolver.md` for the full resolution protocol.
 | API and interface design. Use when designing REST/GraphQL APIs, types, or interfaces. | api-and-interface-design | C:/Users/tiago/OneDrive/Desktop/utn/3_semestre/metodologiaSistemas1/desarrollo active stack/turnos-odontologia/agent/skills/api-and-interface-design/SKILL.md |
 | Node.js backend patterns. Use when building Node.js backend services, APIs, or middleware. | nodejs-backend-patterns | C:/Users/tiago/OneDrive/Desktop/utn/3_semestre/metodologiaSistemas1/desarrollo active stack/turnos-odontologia/agent/skills/nodejs-backend-patterns/SKILL.md |
 | NestJS best practices. Use when working with NestJS framework for building scalable Node.js apps. | nestjs-best-practices | C:/Users/tiago/OneDrive/Desktop/utn/3_semestre/metodologiaSistemas1/desarrollo active stack/turnos-odontologia/agent/skills/nestjs-best-practices/SKILL.md |
+| Audita una spec delta de OpenSpec contra la KB y valida escenarios feliz/error/borde verificables antes de implementar. Usar al preparar/revisar un change o antes de /opsx:apply. | spec-scenario-validator | C:/Users/tiago/OneDrive/Desktop/utn/3_semestre/metodologiaSistemas1/desarrollo active stack/turnos-odontologia/agent/skills/spec-scenario-validator/SKILL.md |
 
 ## Compact Rules
 
@@ -170,6 +171,15 @@ See `_shared/skill-resolver.md` for the full resolution protocol.
 - Keep controllers thin; put logic in services/providers.
 - Use TypeORM/Prisma integrations properly with proper scoping.
 - Write unit tests for services, e2e for critical flows.
+
+### spec-scenario-validator
+- Leer la KB y la spec vigente antes de auditar; no inferir reglas del código.
+- Construir matriz `RN-*` → escenario; marcar cubierta/faltante/ambigua.
+- Exigir mínimo un escenario feliz, uno de error de negocio y uno de borde (≥3).
+- Verificar GIVEN/WHEN/THEN deterministas y resultado observable.
+- Detectar ambigüedades: límites, precedencia, timezone, bordes de rango, concurrencia, holds, plazos, permisos.
+- Cada escenario debe tener verificación en `tasks.md`.
+- Veredicto PASS/FAIL con brechas accionables; nunca inventar reglas ni datos reales.
 
 ## Project Conventions
 
