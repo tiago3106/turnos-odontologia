@@ -242,7 +242,7 @@ Paso │ Agente A (Backend Core)      │ Agente B (Backend Aux)     │ Agente 
 ## FASE 4 — UI del staff
 
 ### [C-07] `agenda-staff-ui`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[ ]` preparado (change en `openspec/changes/agenda-staff-ui/`; pendiente de implementar)
 - **Scope**: Vistas de agenda del equipo del consultorio
   - Vistas: agenda por profesional (día/semana) y por sillón — conmutables
   - Componentes: grid de slots, tarjetas de turno (paciente, prestación, estado), blocker (feriado/vacaciones), sobreturno

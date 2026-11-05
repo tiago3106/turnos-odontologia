@@ -1,0 +1,21 @@
+﻿opencode.exe : [0m
+En C:\Users\tiago\AppData\Roaming\npm\opencode.ps1: 14 Carácter: 3
++   & "$basedir/node_modules/opencode-ai/bin/opencode.exe"   $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([0m:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[90mÔöî[39m  MCP Servers
+[90mÔöé[39m
+[34mÔùÅ[39m  Ô£ô context7 [90mconnected
+[90mÔöé[39m      [90mhttps://mcp.context7.com/mcp
+[90mÔöé[39m
+[34mÔùÅ[39m  Ô£ô engram [90mconnected
+[90mÔöé[39m      [90mengram mcp
+[90mÔöé[39m
+[34mÔùÅ[39m  Ô£ô github [90mconnected
+[90mÔöé[39m      [90mhttps://api.githubcopilot.com/mcp/
+[90mÔöé[39m
+[90mÔöö[39m  3 server(s)
+
+

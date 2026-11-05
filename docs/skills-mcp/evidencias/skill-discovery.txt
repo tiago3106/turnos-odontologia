@@ -1,0 +1,12 @@
+﻿opencode.exe : [0m
+En C:\Users\tiago\AppData\Roaming\npm\opencode.ps1: 14 Carácter: 3
++   & "$basedir/node_modules/opencode-ai/bin/opencode.exe"   $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([0m:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+> build ┬À big-pickle
+[0m
+SI
+Audita una spec delta de OpenSpec (proposal/design/specs/tasks) contra las reglas de negocio de la knowledge-base y valida que haya al menos un escenario feliz, uno de error de negocio y uno de borde, todos verificables, antes de implementar.
+
