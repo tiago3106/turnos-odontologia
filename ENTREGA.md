@@ -40,4 +40,5 @@ openspec validate agenda-staff-ui --strict
 - [x] MCP documentado y operativo (tool real invocada).
 - [x] Change preparado con SDD y validado (`openspec validate --strict`).
 - [x] Sin secretos ni datos reales de pacientes.
-- [ ] Commit de entrega pusheado al repositorio.
+- [x] Commit de entrega pusheado al repositorio.
+- [x] Avance TPI pusheado en `6738dc2` (7 changes archivados, Swagger y vínculo turno→paciente).
