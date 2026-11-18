@@ -24,6 +24,22 @@ asignale su padre o metelo dentro de la raíz.
 
 ---
 
+## Nota de trazabilidad del avance (TPI 2026-11-18)
+
+El avance presentado en el TPI se apoya en **siete changes archivados**: los cinco del Parcial 2
+(`crear-turno-sin-solapamientos`, `pacientes-crud`, `configuracion-clinica`,
+`agenda-gestion-turnos`, `caja-y-senas`) más `turno-paciente-vinculado` (C-06.2) y
+`api-docs-swagger` (C-01.1). El mínimo para un integrante es dos.
+
+**C-01, C-02 y C-03 siguen marcados como pendientes y NO se contabilizan.** Sus tareas se
+resolvieron de forma parcial y transversal dentro de los changes del Parcial 2: hay
+configuración ejecutable, modelos y migraciones, y auditoría por `x-actor`, pero **no hay
+JWT/RBAC**. Por eso los changes que declaran "RBAC de C-03 pendiente" conservan ese alcance
+reducido explicitamente documentado: no se reescribió su historia para hacerlos aparecer como
+completos. `C-07 agenda-staff-ui` está preparado pero sin implementar; tampoco cuenta.
+
+---
+
 ## Árbol de dependencias
 
 ```
@@ -135,6 +151,15 @@ Paso │ Agente A (Backend Core)      │ Agente B (Backend Aux)     │ Agente 
 
 ---
 
+### [C-01.1] `api-docs-swagger`
+- **Estado**: `[x]` archivado (`openspec/changes/archive/2026-11-18-api-docs-swagger`; `GET /api/docs/` y `GET /api/openapi.json` verificados en vivo)
+- **Scope**: Documentación ejecutable del backend con OpenAPI 3.0.3 + Swagger UI servida localmente (`swagger-ui-express`), sin secretos ni CDN.
+- **Dependencias**: C-01 (backend existente)
+- **Governance**: BAJO
+- **Leer antes**: `README.md` §Swagger
+
+---
+
 ### [C-02] `core-models`
 - **Estado**: `[ ]` pendiente
 - **Scope**: Modelos base + migraciones iniciales + seed mínimo
@@ -180,7 +205,7 @@ Paso │ Agente A (Backend Core)      │ Agente B (Backend Aux)     │ Agente 
 > C-04 y C-05 son independientes entre sí (solo necesitan auth). Ambos deben estar archivados antes de C-06.
 
 ### [C-04] `pacientes-crud`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` implementado y validado (change `pacientes-crud`; 12 tests; RBAC de C-03 pendiente)
 - **Scope**: CRUD de pacientes con trazabilidad
   - Modelos: `Patient` (name, phone, email, dni, obra social), validación de datos de contacto
   - Endpoints: `POST/GET/PATCH /api/patients`, `GET /api/patients/{id}` — RBAC (secretaria/director)
@@ -199,7 +224,7 @@ Paso │ Agente A (Backend Core)      │ Agente B (Backend Aux)     │ Agente 
 ---
 
 ### [C-05] `configuracion-clinica`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` implementado y validado (change `configuracion-clinica`; 14 tests; RBAC de C-03 pendiente)
 - **Scope**: Configuración del consultorio: prestaciones, horarios, sillones
   - Modelos: `Procedure` (code, nombre, `default_duration_min`, price, insurance_code), `ProviderSchedule` (día, start, end, interval), `OperatingUnit` (sillón)
   - Endpoints admin (director): CRUD prestaciones, horarios por profesional, sillones
@@ -221,14 +246,14 @@ Paso │ Agente A (Backend Core)      │ Agente B (Backend Aux)     │ Agente 
 > El change más importante del proyecto: la regla de no solapamiento por profesional Y por sillón se garantiza en la base de datos, no en la UI.
 
 ### [C-06] `motor-agenda-antisolapamiento`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` archivado (`openspec/changes/archive/2026-10-08-crear-turno-sin-solapamientos`; alta con anti-solape en BD)
 - **Scope**: Motor de agenda con anti-solapamiento garantizado
-  - Modelos: `Appointment` con estados `pendiente|confirmado|cancelado|asistido|no_asistido|sobreturno`, `source` (secretaria|online|whatsapp), `hold_expires_at`
-  - Migración 005: tabla appointments + constraints `UNIQUE (provider_id, start, end)` y `UNIQUE (operating_unit_id, start, end)` → solapamiento imposible a nivel de BD (RN-AG-01/02)
-  - Endpoints: `POST /api/appointments` (validación de choques → 409), `GET /api/appointments?date=&provider=`, `PATCH /api/appointments/{id}` (mover/reprogramar), cancelar
-  - Duración derivada de la prestación (RN-AG-03); bloqueos por feriado/vacaciones (RN-AG-04); sobreturnos como tipo de turno que respeta restricciones (RN-AG-05)
-  - Transacciones + manejo de concurrencia (reserva online + secretaria simultáneas, RN-GL-01)
-  - Tests: inserción sobre slot ocupado → 409; carrera de concurrencia; bloqueos; sobreturnos; aislamiento por clínica
+  - Modelo: `Appointment` con ciclo de vida `pendiente|confirmado|atendido|ausente|cancelado` (completado en C-06.1), `source`, `cancelledAt`, `cancelReason`
+  - Migración 0001: tabla `appointment` + `EXCLUDE USING gist` por profesional y por sillón → solapamiento imposible en BD (RN-AG-01/02); migración 0004 redefine los índices como parciales (`status <> 'cancelado'`)
+  - Endpoints: `POST /api/appointments` (alta; choque → 409), más consulta, reprogramación, cancelación y cambio de estado (C-06.1)
+  - Duración derivada de la prestación (RN-AG-03); bloqueos y sobreturnos (RN-AG-04/05) quedan fuera de alcance
+  - Transacciones + manejo de concurrencia (RN-GL-01)
+  - Tests: inserción sobre slot ocupado → 409; turnos contiguos; reprogramación con solape; cancelación que libera el slot; aislamiento por clínica
 - **Dependencias**: C-04, C-05
 - **Governance**: CRITICO
 - **Leer antes**:
@@ -236,6 +261,32 @@ Paso │ Agente A (Backend Core)      │ Agente B (Backend Aux)     │ Agente 
   - `knowledge-base/05_reglas_de_negocio.md` §Agenda (RN-AG-01..09)
   - `knowledge-base/07_flujos_principales.md` §Flujo 2 (agendar sin choques)
   - `knowledge-base/09_decisiones_y_supuestos.md` DD-01 (por qué doble UNIQUE)
+
+---
+
+### [C-06.1] `agenda-gestion-turnos`
+- **Estado**: `[x]` implementado y validado (change `agenda-gestion-turnos`; 16 tests; RBAC de C-03 pendiente)
+- **Scope**: ciclo de vida del turno sobre C-06
+  - `GET /api/appointments` con filtros por día (UTC-3), profesional, sillón y estado
+  - `PATCH /api/appointments/{id}` (reprogramar recalculando el fin)
+  - `POST /api/appointments/{id}/cancel` (libera el slot; índices parciales en BD)
+  - `POST /api/appointments/{id}/status` (transiciones válidas)
+  - Migración 0004: `cancelledAt`, `cancelReason`, `CHECK` de estados e índices parciales
+- **Dependencias**: C-06
+- **Governance**: CRITICO
+- **Leer antes**:
+  - `knowledge-base/05_reglas_de_negocio.md` §Agenda (RN-AG-01/02/03)
+  - `knowledge-base/07_flujos_principales.md` §Flujo 2
+
+---
+
+### [C-06.2] `turno-paciente-vinculado`
+- **Estado**: `[x]` archivado (`openspec/changes/archive/2026-11-18-turno-paciente-vinculado`; migración 0006; 2 tests nuevos)
+- **Scope**: `Appointment.patientId` opcional con FK e índice `(patientId, start)`; el alta y la reprogramación validan el paciente activo de la clínica y derivan `patientName`. Cierra el dato `patient_id` exigido por `knowledge-base/04_modelo_de_datos.md`.
+- **Dependencias**: C-04, C-06
+- **Governance**: MEDIO
+- **Exclusiones**: hacerlo obligatorio (reserva online) y desvincular un turno
+- **Leer antes**: `knowledge-base/04_modelo_de_datos.md` §Appointment
 
 ---
 
@@ -282,7 +333,7 @@ Paso │ Agente A (Backend Core)      │ Agente B (Backend Aux)     │ Agente 
 ## FASE 6 — Cobros y caja
 
 ### [C-09] `caja-y-senas`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` implementado y validado (change `caja-y-senas`; 13 tests; MercadoPago real y RBAC pendientes)
 - **Scope**: Cobro de turnos y señas con cierre de caja
   - Modelos: `Payment` (amount, type turno|seña, method efectivo|tarjeta|mercadopago, status, external_id, created_by), vínculo a appointment/tratamiento
   - Endpoints: `POST /api/payments` (cobro/seña), `GET /api/payments?patient=`, anular con trazabilidad (no eliminar — RN-CO-02)

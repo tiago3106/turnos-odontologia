@@ -19,6 +19,14 @@ escenarios, 0 brechas bloqueantes, 6 ambigüedades no bloqueantes. Cubre RN-AG-0
 RN-AU-01 y RN-GL-01; justifica las no aplicables (RN-AG-06/08/09, RN-AU-02). Descubrimiento
 verificado en sesión nueva: `evidencias/skill-discovery.txt`.
 
+**Segunda pasada (2026-11-14).** Se aplicó también a los cuatro changes implementados, todos
+**PASS** con 0 brechas bloqueantes y escenarios feliz / error de negocio / borde verificados por
+tests: `pacientes-crud` (12 tests), `configuracion-clinica` (14), `agenda-gestion-turnos` (16) y
+`caja-y-senas` (13). Reportes en `docs/skills-mcp/evidencias/spec-scenario-{pacientes-crud,
+configuracion-clinica,agenda-gestion-turnos,caja-y-senas}.md`. La skill detectó una cita
+incorrecta de `RN-AG-05` (la KB la usa para sobreturnos): se corrigió a RN-AG-01/02 y se
+reclasificó como decisión de diseño, sin inventar reglas.
+
 ## 2. Servidor MCP: GitHub MCP
 
 Config versionada en `opencode.json` (remoto `https://api.githubcopilot.com/mcp/`, solo lectura).
@@ -64,6 +72,8 @@ Change 'agenda-staff-ui' is valid
 | `docs/skills-mcp/aplicacion.md` | Este informe (≤2 págs) |
 | `docs/skills-mcp/mcp-github.md` | Instrucciones reproducibles del MCP |
 | `docs/skills-mcp/evidencias/*` | Reporte de la skill y pruebas del MCP |
+| `docs/skills-mcp/evidencias/spec-scenario-*` | Cuatro reportes PASS de los changes implementados |
+| `openspec/changes/{pacientes-crud,configuracion-clinica,agenda-gestion-turnos,caja-y-senas}/**` | Changes implementados (SDD) |
 | `openspec/changes/agenda-staff-ui/**` | Change C-07 preparado con SDD |
 | `CHANGES.md` | Estado de C-07: preparado, pendiente |
 | `scripts/opencode-with-github.ps1` | Lanzar opencode con el token desde GCM sin exponerlo |

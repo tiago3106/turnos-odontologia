@@ -76,7 +76,8 @@ Context7 y Engram siguen disponibles desde la config global. Reiniciar opencode 
 
 El plan completo está en [CHANGES.md](CHANGES.md). Resumen:
 
-- **Total**: 16 changes en 10 fases (FASE 0 Cimientos → FASE 9 Reportes y evolución).
+- **Total**: 18 changes en 10 fases (16 originales + `C-01.1 api-docs-swagger` y `C-06.2 turno-paciente-vinculado`).
+- **Archivados para el TPI (7)**: `crear-turno-sin-solapamientos`, `pacientes-crud`, `configuracion-clinica`, `agenda-gestion-turnos`, `caja-y-senas`, `api-docs-swagger`, `turno-paciente-vinculado`. C-01/C-02/C-03 siguen pendientes (sin JWT/RBAC); C-07 preparado, no implementado.
 - **Camino crítico** (8): `C-01 → C-02 → C-03 → C-05 → C-06 → C-09 → C-10 → C-11`.
 - **Primer change**: `C-01` (`foundation-setup`).
 - **Primer fork** (GATE 3): `C-04 pacientes-crud` ∥ `C-05 configuracion-clinica`.

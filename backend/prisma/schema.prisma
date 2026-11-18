@@ -16,26 +16,34 @@ model Clinic {
   operatingUnits OperatingUnit[]
   procedures    Procedure[]
   appointments  Appointment[]
+  patients      Patient[]
+  auditLogs     AuditLog[]
+  payments      Payment[]
 
   @@map("clinic")
 }
 
 model Provider {
-  id       String @id @default(cuid())
-  clinicId String
-  name     String
+  id        String  @id @default(cuid())
+  clinicId  String
+  name      String
+  specialty String?
+  color     String?
+  isActive  Boolean @default(true)
 
-  clinic        Clinic          @relation(fields: [clinicId], references: [id])
+  clinic        Clinic             @relation(fields: [clinicId], references: [id])
   appointments  Appointment[]
+  schedules     ProviderSchedule[]
 
   @@index([clinicId])
   @@map("provider")
 }
 
 model OperatingUnit {
-  id       String @id @default(cuid())
+  id       String  @id @default(cuid())
   clinicId String
   name     String
+  isActive Boolean @default(true)
 
   clinic       Clinic         @relation(fields: [clinicId], references: [id])
   appointments Appointment[]
@@ -45,17 +53,33 @@ model OperatingUnit {
 }
 
 model Procedure {
-  id                String @id @default(cuid())
-  clinicId          String
-  code              String
-  name              String
+  id                 String  @id @default(cuid())
+  clinicId           String
+  code               String
+  name               String
   defaultDurationMin Int
+  priceCents         Int     @default(0)
+  isActive           Boolean @default(true)
 
   clinic       Clinic        @relation(fields: [clinicId], references: [id])
   appointments Appointment[]
 
   @@unique([clinicId, code])
   @@map("procedure")
+}
+
+model ProviderSchedule {
+  id          String @id @default(cuid())
+  providerId  String
+  dayOfWeek   Int
+  startMinute Int
+  endMinute   Int
+  intervalMin Int    @default(15)
+
+  provider Provider @relation(fields: [providerId], references: [id])
+
+  @@index([providerId, dayOfWeek])
+  @@map("provider_schedule")
 }
 
 model Appointment {
@@ -65,19 +89,91 @@ model Appointment {
   operatingUnitId String
   procedureId     String
   patientName     String
+  patientId       String?
   start           DateTime @db.Timestamptz
   end             DateTime @db.Timestamptz
   status          String   @default("confirmado")
   source          String   @default("secretaria")
+  cancelledAt     DateTime? @db.Timestamptz
+  cancelReason    String?
   createdAt       DateTime @default(now()) @db.Timestamptz
+  updatedAt       DateTime @updatedAt @db.Timestamptz
 
   clinic        Clinic        @relation(fields: [clinicId], references: [id])
   provider      Provider      @relation(fields: [providerId], references: [id])
   operatingUnit OperatingUnit @relation(fields: [operatingUnitId], references: [id])
   procedure     Procedure     @relation(fields: [procedureId], references: [id])
+  patient       Patient?      @relation(fields: [patientId], references: [id])
+  payments      Payment[]
 
   @@index([providerId, start])
   @@index([operatingUnitId, start])
   @@index([clinicId, start])
+  @@index([patientId, start])
   @@map("appointment")
+}
+
+model Patient {
+  id        String   @id @default(cuid())
+  clinicId  String
+  name      String
+  phone     String?
+  email     String?
+  dni       String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+
+  clinic   Clinic     @relation(fields: [clinicId], references: [id])
+  payments Payment[]
+  appointments Appointment[]
+
+  @@unique([clinicId, dni])
+  @@index([clinicId, name])
+  @@map("patient")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  clinicId  String
+  entity    String
+  entityId  String
+  action    String
+  before    Json?
+  after     Json?
+  actor     String   @default("sistema")
+  ip        String?
+  createdAt DateTime @default(now()) @db.Timestamptz
+
+  clinic Clinic @relation(fields: [clinicId], references: [id])
+
+  @@index([entity, entityId])
+  @@index([clinicId, createdAt])
+  @@map("audit_log")
+}
+
+model Payment {
+  id            String    @id @default(cuid())
+  clinicId      String
+  appointmentId String?
+  patientId     String?
+  type          String
+  method        String
+  amountCents   Int
+  status        String    @default("registrado")
+  externalId    String?
+  createdBy     String    @default("sistema")
+  annulledAt    DateTime? @db.Timestamptz
+  annulReason   String?
+  createdAt     DateTime  @default(now()) @db.Timestamptz
+  updatedAt     DateTime  @updatedAt @db.Timestamptz
+
+  clinic      Clinic       @relation(fields: [clinicId], references: [id])
+  appointment Appointment? @relation(fields: [appointmentId], references: [id])
+  patient     Patient?     @relation(fields: [patientId], references: [id])
+
+  @@index([clinicId, createdAt])
+  @@index([appointmentId])
+  @@index([patientId])
+  @@map("payment")
 }

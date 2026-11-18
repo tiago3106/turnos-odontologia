@@ -2,6 +2,7 @@ import { beforeAll, afterAll, beforeEach, describe, expect, it } from 'vitest';
 import request from 'supertest';
 import { createApp } from '../src/app';
 import { prisma } from '../src/db';
+import { resetDatabase } from './helpers/reset-db';
 
 const app = createApp();
 
@@ -12,8 +13,10 @@ let unit1 = '';
 let unit2 = '';
 let procedureConsulta = '';
 let procedureLimpieza = '';
+let patientId = '';
 
 beforeAll(async () => {
+  await resetDatabase();
   const clinic = await prisma.clinic.create({ data: { name: 'Clínica Test (ficticia)' } });
   clinicId = clinic.id;
 
@@ -27,7 +30,11 @@ beforeAll(async () => {
   const limpieza = await prisma.procedure.create({
     data: { clinicId, code: 'LIMP', name: 'Limpieza', defaultDurationMin: 45 },
   });
+  const patient = await prisma.patient.create({
+    data: { clinicId, name: 'Paciente Ficticio', phone: '555-0100', dni: '30999999' },
+  });
 
+  patientId = patient.id;
   providerA = a.id;
   providerB = b.id;
   unit1 = u1.id;
@@ -49,6 +56,8 @@ interface AppointmentBody {
   start: string;
   end: string;
   status: string;
+  patientId: string | null;
+  patient: { id: string; name: string } | null;
 }
 
 function payload(overrides: Record<string, string> = {}): Record<string, string> {
@@ -157,6 +166,27 @@ describe('POST /api/appointments', () => {
     expect(res.status).toBe(201);
     const body = res.body as AppointmentBody;
     expect(new Date(body.end).getTime() - new Date(body.start).getTime()).toBe(45 * 60_000);
+  });
+
+  it('C-06.2: vincula el turno al paciente y deriva su nombre', async () => {
+    const res = await request(app)
+      .post('/api/appointments')
+      .send({ ...payload(), patientName: 'Nombre viejo', patientId });
+
+    expect(res.status).toBe(201);
+    const body = res.body as AppointmentBody;
+    expect(body.patientId).toBe(patientId);
+    expect(body.patient?.name).toBe('Paciente Ficticio');
+    expect(res.body.patientName).toBe('Paciente Ficticio');
+  });
+
+  it('C-06.2: rechaza patientId inexistente con 404', async () => {
+    const res = await request(app)
+      .post('/api/appointments')
+      .send({ ...payload(), patientId: 'paciente-no-existe' });
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe('PATIENT_NOT_FOUND');
   });
 });
 

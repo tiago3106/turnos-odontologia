@@ -1,8 +1,13 @@
 import express, { NextFunction, Request, Response } from 'express';
+import swaggerUi from 'swagger-ui-express';
 import { ZodError } from 'zod';
 import { ApiError } from './errors';
 import { appointmentsRouter } from './appointments/router';
+import { patientsRouter } from './patients/router';
+import { catalogRouter } from './catalog/router';
+import { paymentsRouter } from './payments/router';
 import { config } from './config';
+import { openapiDocument } from './openapi';
 
 export function createApp(): express.Express {
   const app = express();
@@ -14,6 +19,14 @@ export function createApp(): express.Express {
   });
 
   app.use('/api/appointments', appointmentsRouter);
+  app.use('/api/patients', patientsRouter);
+  app.use('/api', catalogRouter);
+  app.use('/api', paymentsRouter);
+
+  app.get('/api/openapi.json', (_req: Request, res: Response) => {
+    res.json(openapiDocument);
+  });
+  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
 
   app.use((_req: Request, res: Response) => {
     res.status(404).json({ error: 'NOT_FOUND', message: 'Recurso inexistente' });
