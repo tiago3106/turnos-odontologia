@@ -215,7 +215,7 @@ export const openapiDocument: Record<string, unknown> = {
                   appointmentId: { type: 'string' },
                   patientId: { type: 'string' },
                   amountCents: { type: 'integer', example: 5000 },
-                  type: { type: 'string', enum: ['turno', 'seña'] },
+                  type: { type: 'string', enum: ['turno', 'sena'], description: 'sena = señal/anticipo' },
                   method: { type: 'string', enum: ['efectivo', 'tarjeta', 'mercadopago'] },
                 },
               },
