@@ -8,6 +8,7 @@
 
 - **Repositorio**: https://github.com/tiago3106/turnos-odontologia
 - **Commit de entrega**: `ff79943`
+- **Video explicativo**: https://youtu.be/Y1wzXT_QxCY
 - **ZIP**: `TP-Skills-MCP-Guillot.zip`
 
 ## Documentos

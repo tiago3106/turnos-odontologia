@@ -3,6 +3,8 @@
 Sistema de gestión de turnos y agenda para consultorios odontológicos. **Estado: TPI 2026-11-18.**
 Todo el dominio usa **datos ficticios**; no hay credenciales ni tokens en el repositorio.
 
+> **Video explicativo del TPI (Metodología I)**: https://youtu.be/Y1wzXT_QxCY
+
 > Los comandos de abajo se ejecutan **dentro de `backend/`** (el `package.json` vive ahí, no en la raíz).
 
 ## Requisitos
